@@ -12,8 +12,9 @@ This repository provides a solution by levaraging extractive summarization techn
 [[2]](#2) makes use of extractive text summarization by utilizing the BERT model for sentence embeddings and K-Means clustering to identify sentences closest to the centroid for summary selection. The top 'n' sentences are then selected as part of the summary.<br>
 
 - The proposed model incorporates both the above ideas by making the summary in the decoder attend not only to the role-based meeting text but also the 'n' top ranked turns/sentences of the meeting.
-- This provides the decoder with more important information from the meeting so that their meaning can be incorporated into the summary. 
+- The output from the encoder is passed through an Attentive Gating module that uses an exponential function to scale the attentive weights such that unimportant turns are disregarded.
 - The turn-level encoder is replaced by the clustering module which returns the top 'n' sentences based on the number of clusters formed.
+- This provides the decoder with relevant information from the meeting by putting more emphasis on the important turns while supressing the insignificant ones.
 - Moreover, sentence embeddings are used as input to the encoder instead of word embeddings(used by HMNet) which help in clustering and also reduce dimensionality for the otherwise large meeting samples.
 - The role vector is concatenated to the sentence-level encoder instead of the turn-level encoder(which is removed altogether) as sentence embeddings already encode the textual information aptly.
 
